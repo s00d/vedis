@@ -103,9 +103,6 @@
     mounted () {
       if(this.select.val == null) return;
       this.val = this.select.val
-      console.log(this.val)
-      console.log(Object.keys(this.val)[0])
-      console.log(this.val[Object.keys(this.val)[0]])
       this.selectedItem = {
           key: Object.keys(this.val)[0],
           text: this.val[Object.keys(this.val)[0]]

@@ -141,6 +141,27 @@ const actions = {
         return state.instance.zadd(data.key, 0, 'val' in data ? data.val : 'New Member')
     }
   },
+  removeKey({ dispatch, commit, state }, data = {key, type, val}) {
+    switch (data.type) {
+      case 'string':
+        return state.instance.del(data.key)
+      case 'tree':
+        return state.instance.keys(data.key+':*').then(exists => {
+          for (let key of exists) state.instance.del(key);
+        });
+        return state.instance.del(data.key)
+      case 'list':
+        return state.instance.lrem(data.key, 1, data.item)
+      case 'hash':
+        return state.instance.hdet(data.key, data.item)
+      case 'set':
+        return state.instance.srem(data.key, data.item)
+      case 'zset':
+        return state.instance.zrem(data.key, data.item)
+      default:
+        return state.instance.del(data.key)
+    }
+  },
   reloadList ({ dispatch, commit, state }, data = {pattern: '*', cursor: 0}) {
     if (data.pattern.indexOf('*') === -1 && data.pattern.indexOf('?') === -1) {
       data.pattern += '*'

@@ -71,7 +71,7 @@ import contextMenu from 'vue-context-menu'
         if(type === 'STR') return 'badge-success';
         if(type === 'ZSET') return 'badge-warning';
         if(type === 'LIST') return 'badge-info';
-        if(type === 'HLIST') return 'badge-light';
+        if(type === 'SET') return 'badge-light';
       },
       select(item) {
         this.selected = item.path
