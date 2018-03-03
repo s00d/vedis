@@ -32,7 +32,7 @@
           <option value="json" disabled="">JSON</option>
           <option value="messagepack" disabled="">MessagePack</option>
         </select>
-        <button class="btn btn-default pull-right" @click="save">Save Changes</button>
+        <button class="btn btn-default btn-sm float-right" @click="save">Save Changes</button>
       </div>
     </div>
 
