@@ -1,32 +1,25 @@
 <template>
   <div class="row">
     <div class="col-md-3" id="sidebar" style="padding: 3px">
-    
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col">
-               <div class="input-group mb-12">
-                  <input type="text" class="form-control" placeholder="Search" />
-                   <div class="input-group-append">
-                     <button class="btn btn-outline-secondary add" type="button" @click="show = !show">+</button>
-                  </div>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody  class="list">
-          <tr v-for="(text, key) in val" :key="key">
-            <th 
-              scope="row" 
-              v-text="key" 
-              class="line" 
-              :class="{active: selectedItem.key === key}" 
-              @click="selectItem(key, text)">
-            </th>
-          </tr>
-        </tbody>
-      </table>
+      <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <div class="input-group mb-12">
+                      <input type="text" class="form-control" placeholder="Search" />
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary add" type="button" @click="show = !show">+</button>
+                      </div>
+                    </div>
+                </li>
+                <li v-for="(text, key) in val" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, text)">
+                  <span 
+                    scope="row" 
+                    v-text="key">
+                  </span>
+                  <a class="rm-btn float-right">x</a>
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="col-md-9" style="padding: 3px">
       <textarea autocomplete="off" class="editor form-control" v-model="selectedItem.text"></textarea>
@@ -124,6 +117,8 @@
 
   .line {
     cursor: pointer;
+    padding: 6px;
+    border: 1px solid #d2d2d2;
   }
   .active {
     background: rgb(175, 175, 175);
@@ -135,8 +130,28 @@
   }
 
   #sidebar {
-    height: 100vh;
+    height: 80vh;
     transition: all 0.3s;
-    overflow: visible;
+    overflow-y: auto;
   }
+
+  .rm-btn {
+    cursor: pointer;
+    color: red !important;
+    /* width: 20px; */
+  }
+  .sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 98%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sidebar-nav li {
+    /* text-indent: 20px; */
+    line-height: 14px;
+  }
+
 </style>

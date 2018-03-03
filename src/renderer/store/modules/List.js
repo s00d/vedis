@@ -73,7 +73,7 @@ const actions = {
     });
 
     if (item.type === 'LIST') state.instance.llen(item.path).then(count => {
-      state.instance.lRange(item.path, 0, count).then(values => {
+      state.instance.lrange(item.path, 0, count).then(values => {
         let vals = {};
         for(let key in values) {
           vals[key] = values[key];
@@ -128,7 +128,11 @@ const actions = {
       case 'string':
         return state.instance.set(data.key, 'val' in data ? data.val : '')
       case 'list':
-        return state.instance.lpush(data.key, 'val' in data ? data.val : 'New Item')
+        if('index' in data) {
+          return state.instance.lset(data.key, data.index, data.val)
+        }else {
+          return state.instance.rpush(data.key, 'val' in data ? data.val : 'New Item')
+        }
       case 'hash':
         return state.instance.hset(data.key, 'item' in data ? data.item : 'New Key', 'val' in data ? data.val :'New Value')
       case 'set':

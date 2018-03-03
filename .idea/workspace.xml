@@ -11,7 +11,6 @@
       <change beforePath="" afterPath="$PROJECT_DIR$/.electron-vue/webpack.web.config.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="" afterPath="$PROJECT_DIR$/.travis.yml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/README.md" />
       <change beforePath="" afterPath="$PROJECT_DIR$/appveyor.yml" />
       <change beforePath="" afterPath="$PROJECT_DIR$/build/icons/256x256.png" />
       <change beforePath="" afterPath="$PROJECT_DIR$/build/icons/icon.icns" />
@@ -28,7 +27,6 @@
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/assets/.gitkeep" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/assets/logo.png" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/Editor.vue" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/HashEdit.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/ListEdit.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/SetEdit.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/StringEdit.vue" />
@@ -47,6 +45,8 @@
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/store/modules/List.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/store/modules/index.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/static/.gitkeep" />
+      <change beforePath="$PROJECT_DIR$/.vscode/temp.sql" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/Editor/HashEdit.vue" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/HashEdit.vue" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -147,12 +147,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520094345517</updated>
-      <workItem from="1520094347529" duration="501000" />
+      <workItem from="1520094347529" duration="736000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="501000" />
+    <option name="totallyTimeSpent" value="736000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1212" height="1027" extended-state="0" />
