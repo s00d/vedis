@@ -84,7 +84,7 @@
       ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey'}),
       save() {
         this.val[this.selectedItem.key] = this.selectedItem.text;
-        this.removeKey({type: 'set', item: this.old, key: this.select.key});
+        this.removeKey({type: 'set', old: this.old, key: this.select.key});
         this.saveKey({type: 'set', val: this.selectedItem.text, key: this.select.key})
       },
       selectItem(key, text) {

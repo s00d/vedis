@@ -97,13 +97,13 @@ const actions = {
     if (item.type === 'ZSET') state.instance.zrange(item.path, 0, -1).then(values => {
       let vals = {};
       for(let key in values) {
-        state.instance.zxcore(key, values[key]).then(score => {
-          vals[score] = values[key];
+        state.instance.zscore(item.path, values[key]).then(score => {
+          vals[Object.keys(vals).length] = {score: score, val: values[key]}
+          Vue.set(state.select, 'val', vals); 
         });
         
       }
       Vue.set(state.select, 'key', item.path); 
-      Vue.set(state.select, 'val', vals); 
       Vue.set(state.select, 'size', Object.keys(vals).length);
     });
 
@@ -138,7 +138,7 @@ const actions = {
       case 'set':
         return state.instance.sadd(data.key, 'val' in data ? data.val : 'New Member')
       case 'zset':
-        return state.instance.zadd(data.key, 0, 'val' in data ? data.val : 'New Member')
+        return state.instance.zadd(data.key, 'score' in data ? data.score : 0, 'val' in data ? data.val : 'New Member')
     }
   },
   removeKey({ dispatch, commit, state }, data = {key, type, val}) {
