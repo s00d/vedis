@@ -1,5 +1,5 @@
 <template>
-<div class="pane-group">
+  <div class="pane-group">
     <div class="pane pane-sm sidebar">
         <div class="input-group mb-12">
           <input type="text" class="form-control" placeholder="Search" />
@@ -54,10 +54,7 @@
             title="Create new"
             button="add"
       />
-    </div>
   </div>
-
-  
 </template>
 
 <script>
@@ -91,9 +88,12 @@
       }
     },
     computed: {
-        ...mapState({
-            select: state => state.List.select
-        }),
+      ...mapGetters({
+        selectedTab: 'selectedTab'
+      }),
+      select: function() {
+        return this.selectedTab.select
+      },
     },
     methods: {
       ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey'}),

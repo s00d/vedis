@@ -53,4 +53,8 @@
   .table-striped tr:nth-child(even), thead {
     background-color: #f5f5f4;
   }
+
+  .tab-item.active {
+    color: black !important;
+}
 </style>

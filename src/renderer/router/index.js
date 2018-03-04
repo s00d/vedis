@@ -11,11 +11,6 @@ export default new Router({
       component: require('@/components/IndexPage').default
     },
     {
-      path: '/connection1',
-      name: 'connection-page',
-      component: require('@/components/ConnectionPage').default
-    },
-    {
       path: '*',
       redirect: '/db'
     }

@@ -49,7 +49,6 @@
             title="Create new"
             button="add"
       />
-    </div>
   </div>
 </template>
 
@@ -81,9 +80,12 @@
       }
     },
     computed: {
-        ...mapState({
-            select: state => state.List.select
-        }),
+      ...mapGetters({
+        selectedTab: 'selectedTab'
+      }),
+      select: function() {
+        return this.selectedTab.select
+      },
     },
     methods: {
       ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey'}),

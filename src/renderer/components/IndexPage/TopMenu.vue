@@ -34,11 +34,18 @@
       ...mapActions({selectDB: 'selectDB'}),
     },
     computed: {
-      redis_status() { return this.$store.state.List.status },
-      ...mapState({
-            count: state => state.List.count,
-            db: state => state.List.config.db,
-        }),
+      ...mapGetters({
+        selectedTab: 'selectedTab'
+      }),
+      count: function() {
+        return this.selectedTab.count
+      },
+      db: function() {
+        return this.selectedTab.config.db
+      },
+      redis_status: function() {
+        return this.selectedTab.redis_status
+      }
     },
     mounted () {
 

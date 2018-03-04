@@ -48,13 +48,15 @@ import contextMenu from 'vue-context-menu'
     },
     components: { addButton, contextMenu },
     computed: {
-        ...mapState({
-            list: state => state.List.list,
-            cursor: state => state.List.cursor
-        }),
-        // ...mapGetters({
-        //     filteredMsg: 'sms_list/get_message'
-        // }),
+      ...mapGetters({
+        selectedTab: 'selectedTab'
+      }),
+      list: function() {
+        return this.selectedTab.list
+      },
+      cursor: function() {
+        return this.selectedTab.cursor
+      }
     },
     watch: {
       pattern(val) {

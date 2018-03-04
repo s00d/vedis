@@ -1,11 +1,11 @@
 <template>
   <div class="window">
     <div class="tab-group">
-      <div class="tab-item">
+      <div class="tab-item" v-for="(item, key) in tabs" :key="key" :class="{active: key === tab}" @click="selectTab(key)">
         <span class="icon icon-cancel icon-close-tab"></span>
-        Tab
+        <span v-text="item.name"></span>
       </div>
-      <div class="tab-item tab-item-fixed">
+      <div class="tab-item tab-item-fixed" @click="addNewTab">
         <span class="icon icon-plus"></span>
       </div>
     </div>
@@ -23,7 +23,7 @@
         </div>
 
     
-        <button class="btn btn-default btn-dropdown pull-right dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DB: <span v-text="db"></span></button>
+        <button class="btn btn-default btn-dropdown pull-right dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DB: <span v-text="config.db"></span></button>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
           <a class="dropdown-item" href="#" v-for="db in count" :key="db-1" v-text="db-1" @click="selectDB(db-1)"></a>
         </div>
@@ -58,23 +58,37 @@
     name: 'index-page',
     components: { LeftMenu, TopMenu, Editor, addButton, ConnectionPage },
     methods: {
-      ...mapActions({selectDB: 'selectDB'}),
+      ...mapActions({selectDB: 'selectDB', addNewTab: 'addNewTab', selectTab: 'selectTab'}),
       open (link) {
         this.$electron.shell.openExternal(link)
       }
     },
     computed: {
-      redis_status() { return this.$store.state.List.status },
+      ...mapGetters({
+        selectedTab: 'selectedTab'
+      }),
       ...mapState({
-            count: state => state.List.count,
-            db: state => state.List.config.db,
-            select: state => state.List.select,
-            config: state => state.List.config,
-            connect: state => state.List.connect,
-        }),
+        tabs: state => state.List.tabs,
+        tab: state => state.List.tab,
+      }),
+      count: function() {
+        return this.selectedTab.count
+      },
+      select: function() {
+        return this.selectedTab.select
+      },
+      config: function() {
+        return this.selectedTab.config
+      },
+      connect: function() {
+        return this.selectedTab.connect
+      },
+      redis_status: function() {
+        return this.selectedTab.status
+      },
     },
     mounted () {
-      console.log();
+      console.log('data', this.count);
     }
   }
 </script>

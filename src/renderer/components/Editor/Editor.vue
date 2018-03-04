@@ -25,9 +25,12 @@
       }
     },
     computed: {
-        ...mapState({
-            select: state => state.List.select
-        }),
+      ...mapGetters({
+        selectedTab: 'selectedTab'
+      }),
+      select: function() {
+        return this.selectedTab.select
+      },
     },
   }
 </script>
