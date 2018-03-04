@@ -19,7 +19,6 @@
       <change beforePath="" afterPath="$PROJECT_DIR$/dist/web/.gitkeep" />
       <change beforePath="" afterPath="$PROJECT_DIR$/package-lock.json" />
       <change beforePath="" afterPath="$PROJECT_DIR$/package.json" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/index.ejs" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/main/index.dev.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/main/index.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/redis.js" />
@@ -27,7 +26,6 @@
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/assets/.gitkeep" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/assets/logo.png" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/Editor.vue" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage/TopMenu.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage/addButton.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/LandingPage.vue" />
@@ -40,8 +38,9 @@
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/store/modules/index.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/static/.gitkeep" />
       <change beforePath="$PROJECT_DIR$/.vscode/temp.sql" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/components/Editor/ZSetEdit.vue" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/ZSetEdit.vue" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/store/modules/List.js" afterPath="$PROJECT_DIR$/src/renderer/store/modules/List.js" />
+      <change beforePath="$PROJECT_DIR$/src/index.ejs" afterPath="$PROJECT_DIR$/src/index.ejs" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/IndexPage.vue" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/IndexPage/LeftMenu.vue" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage/LeftMenu.vue" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -142,12 +141,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520094345517</updated>
-      <workItem from="1520094347529" duration="1498000" />
+      <workItem from="1520094347529" duration="2697000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1498000" />
+    <option name="totallyTimeSpent" value="2697000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1212" height="1027" extended-state="0" />
@@ -159,10 +158,10 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32939914" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="JSON Viewer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24957265" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24957265" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="JSON Utils" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />

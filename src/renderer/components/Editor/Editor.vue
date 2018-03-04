@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <div v-if="select">
-      <string-edit v-if="select.type === 'STR'" />
-      <hash-edit v-else-if="select.type === 'HASH'" />
+  <div class="pane">
+    <string-edit v-if="select.type === 'STR'" />
+    <hash-edit v-else-if="select.type === 'HASH'" />
 
-      <list-edit v-else-if="select.type === 'LIST'" />
-      <set-edit v-else-if="select.type === 'SET'" />
-      <z-set-edit v-else-if="select.type === 'ZSET'" />
-    </div>
+    <list-edit v-else-if="select.type === 'LIST'" />
+    <set-edit v-else-if="select.type === 'SET'" />
+    <z-set-edit v-else-if="select.type === 'ZSET'" />
   </div>
 </template>
 
@@ -35,5 +33,13 @@
 </script>
 
 <style scoped>
-  
+  .row{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .active, .selected {
+    color: #fff !important;
+    background-color: #116cd6 !important;
+  }
 </style>

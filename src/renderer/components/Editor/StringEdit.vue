@@ -1,16 +1,18 @@
 <template>
-  <div>
-    <textarea autocomplete="off" class="editor form-control" v-model="val"></textarea>
-    <div class="operation-pannel">
-      <label class="wrap-selector">
-        Wrapping
-      </label>
-      <select class="mode-selector">
-        <option value="raw">Raw</option>
-        <option value="json" disabled="">JSON</option>
-        <option value="messagepack" disabled="">MessagePack</option>
-      </select>
-      <button class="btn btn-default btn-sm float-right" @click="save">Save Changes</button>
+  <div class="pane-group">
+    <div class="pane">
+      <textarea autocomplete="off" class="editor form-control" v-model="val"></textarea>
+      <div class="operation-pannel">
+        <label class="wrap-selector">
+          Wrapping
+        </label>
+        <select class="mode-selector">
+          <option value="raw">Raw</option>
+          <option value="json" disabled="">JSON</option>
+          <option value="messagepack" disabled="">MessagePack</option>
+        </select>
+        <button class="btn btn-default btn-sm float-right" @click="save">Save Changes</button>
+      </div>
     </div>
   </div>
 </template>
@@ -49,5 +51,10 @@
   .editor {
     width: 100%;
     height: 200px;
+  }
+
+  .active, .selected {
+    color: #fff !important;
+    background-color: #116cd6 !important;
   }
 </style>

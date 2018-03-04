@@ -1,17 +1,17 @@
 <template>
-  <div class="row">
-    <div class="col-md-3" id="sidebar" style="padding: 3px">
-      <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <div class="input-group mb-12">
-                      <input type="text" class="form-control" placeholder="Search" />
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary add" type="button" @click="show = !show">+</button>
-                      </div>
-                    </div>
-                </li>
-                <li v-for="(item, key) in val" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, item)">
+<div class="pane-group">
+    <div class="pane pane-sm sidebar">
+        <div class="input-group mb-12">
+          <input type="text" class="form-control" placeholder="Search" />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary add" type="button" @click="show = !show">+</button>
+          </div>
+        </div>
+        <div>
+          <table class="pane table-striped" id="list">
+            <tbody class="list">
+              <tr v-for="(item, key) in val" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, item)">
+                <td class="list-item">
                   <span 
                     scope="row" 
                     v-text="item.score">
@@ -21,36 +21,43 @@
                     v-text="item.val">
                   </span>
                   <a class="rm-btn float-right">x</a>
-                </li>
-            </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>       
         </div>
-    </div>
-    <div class="col-md-9" style="padding: 3px">
-      <textarea autocomplete="off" class="editor form-control" v-model="selectedItem.text"></textarea>
-      <div class="operation-pannel">
-        <label class="wrap-selector">
-          Wrapping
-        </label>
-        <select class="mode-selector">
-          <option value="raw">Raw</option>
-          <option value="json" disabled="">JSON</option>
-          <option value="messagepack" disabled="">MessagePack</option>
-        </select>
-        <button class="btn btn-default btn-sm float-right" @click="save">Save Changes</button>
-      </div>
-    </div>
 
-    <modal v-if="show" 
-          @close="show = false" 
-          @save="add" 
-          :inputs="{
-            'Name:': {type: 'string', minLength: 1},
-            'Score:': {type: 'number', minLength: 1}
-          }"
-          title="Create new"
-          button="add"
-    />
+      </div>
+
+        <div class="pane" style="width: 551px;">
+        <textarea autocomplete="off" class="editor form-control" v-model="selectedItem.text"></textarea>
+        <div class="operation-pannel">
+          <label class="wrap-selector">
+            Wrapping
+          </label>
+          <select class="mode-selector">
+            <option value="raw">Raw</option>
+            <option value="json" disabled="">JSON</option>
+            <option value="messagepack" disabled="">MessagePack</option>
+          </select>
+          <button class="btn btn-default btn-sm float-right" @click="save">Save Changes</button>
+        </div>
+      </div>
+
+      <modal v-if="show" 
+            @close="show = false" 
+            @save="change" 
+            :inputs="{
+              'Name:': {type: 'string', minLength: 1},
+              'Score:': {type: 'number', minLength: 1}
+            }"
+            title="Create new"
+            button="add"
+      />
+    </div>
   </div>
+
+  
 </template>
 
 <script>
@@ -128,43 +135,8 @@
     height: 200px;
   }
 
-  .line {
-    cursor: pointer;
-    padding: 6px;
-    border: 1px solid #d2d2d2;
+  .active, .selected {
+    color: #fff !important;
+    background-color: #116cd6 !important;
   }
-  .active {
-    background: rgb(175, 175, 175);
-  }
-
-  .list {
-    height: 20px;
-    overflow-y: auto;
-  }
-
-  #sidebar {
-    height: 80vh;
-    transition: all 0.3s;
-    overflow-y: auto;
-  }
-
-  .rm-btn {
-    cursor: pointer;
-    color: red !important;
-    /* width: 20px; */
-  }
-  .sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 98%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .sidebar-nav li {
-    /* text-indent: 20px; */
-    line-height: 14px;
-  }
-
 </style>
