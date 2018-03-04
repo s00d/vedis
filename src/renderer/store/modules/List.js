@@ -9,21 +9,8 @@ const state = {
   list: {},
   select: false,
   status: 'not connected',
-  config: {
-    db: 0,
-    ssh: false,
-    sshHost: '127.0.0.1',
-    sshPort: 22,
-    sshUser: 'user',
-    host: '127.0.0.1',
-    port: 6379,
-    tlsca: false,
-    tlskey: false,
-    tlscert: false,
-    sshKey: false,
-    sshKeyPassphrase: false,
-    sshPassword: false
-  },
+  connect: false,
+  config: {},
   instance: null,
   pattern: '*' ,
   fetchCount: 100,
@@ -37,8 +24,9 @@ const mutations = {
     state.config.db = db
     state.instance.select(db);
   },
-  SET_SETTINGS(state, params) {
-    state.config = Object.assign(state.config, params)
+  SET_CONFIG(state, params) {
+    Vue.set(state, 'config', Object.assign(state.config, params))
+    state.connect = true;
   },
   SET_STATUS(state, status) {
     state.status = status
@@ -49,6 +37,12 @@ const mutations = {
 }
 
 const actions = {
+  setConfig({ dispatch, commit, state }, config) {
+    console.log(config);
+    commit('SET_CONFIG', config);  
+    dispatch('connectToRedis');
+    // dispatch('reloadList');
+  },
   selectDB({ dispatch, commit, state }, db) {
     commit('SELECT_DB', db);  
     dispatch('reloadList');
@@ -123,14 +117,13 @@ const actions = {
     })
   },
   saveKey({ dispatch, commit, state }, data = {key, type, val}) {
-    console.log(data);
     switch (data.type) {
       case 'string':
         return state.instance.set(data.key, 'val' in data ? data.val : '')
       case 'list':
-        if('index' in data) {
+        if ('index' in data) {
           return state.instance.lset(data.key, data.index, data.val)
-        }else {
+        } else {
           return state.instance.rpush(data.key, 'val' in data ? data.val : 'New Item')
         }
       case 'hash':
@@ -142,24 +135,37 @@ const actions = {
     }
   },
   removeKey({ dispatch, commit, state }, data = {key, type, val}) {
+    console.log(data, state.select.val);
     switch (data.type) {
-      case 'string':
+      case 'string': {
+        Vue.delete(state.list, data.key);
         return state.instance.del(data.key)
+      }
       case 'tree':
         return state.instance.keys(data.key+':*').then(exists => {
           for (let key of exists) state.instance.del(key);
         });
         return state.instance.del(data.key)
-      case 'list':
+      case 'list': {
+        Vue.delete(state.select.val, data.id);
         return state.instance.lrem(data.key, 1, data.item)
-      case 'hash':
-        return state.instance.hdet(data.key, data.item)
-      case 'set':
+      }
+      case 'hash': {
+        Vue.delete(state.select.val, data.item);
+        return state.instance.hdel(data.key, data.item)
+      }
+      case 'set': {
+        Vue.delete(state.select.val, data.id);
         return state.instance.srem(data.key, data.item)
-      case 'zset':
+      }
+      case 'zset': {
+        Vue.delete(state.select.val, data.id);
         return state.instance.zrem(data.key, data.item)
-      default:
+      }
+      default: {
+        Vue.delete(state.list, data.key);
         return state.instance.del(data.key)
+      }
     }
   },
   reloadList ({ dispatch, commit, state }, data = {pattern: '*', cursor: 0}) {
@@ -233,7 +239,7 @@ const actions = {
     //     })
     //   }).on('error', err => {
     //     sshErrorThrown = true;
-    //     commit('SET_SETTINGS', {status: 'Disconnect'});
+          // commit('SET_STATUS', 'Disconnect');
     //     alert(`SSH Error: ${err.message}`);
     //   })
   
@@ -285,6 +291,10 @@ const actions = {
         numberOfKeys: 2,
         lua: 'local dump = redis.call("dump", KEYS[1]) local pttl = 0 if ARGV[1] == "TTL" then pttl = redis.call("pttl", KEYS[1]) end return redis.call("restore", KEYS[2], pttl, dump)'
       });
+
+      console.log(redis, state.config);
+
+
       redis.once('connect', function () {
         redis.ping((err, res) => {
           if (err) {
@@ -295,6 +305,8 @@ const actions = {
               alert(err.message);
               redis.disconnect();
             }
+            commit('SET_STATUS', 'Disconnect');
+            state.connect = false
             return;
           }
           const version = redis.serverInfo.redis_version;
@@ -303,6 +315,7 @@ const actions = {
             if (versionNumber < 28) {
               alert('Vedis only supports Redis >= 2.8 because servers older than 2.8 don\'t support SCAN command, which means it not possible to access keys without blocking Redis.');
               commit('SET_STATUS', 'Disconnect');
+              state.connect = false
               return;
             }
           }
@@ -316,6 +329,8 @@ const actions = {
       redis.once('error', function (error) {
         commit('SET_STATUS', 'Error');
         redisErrorMessage = error;
+        commit('SET_STATUS', 'Disconnect');
+        state.connect = false
         alert(error);
       });
       redis.once('end', function () {
@@ -325,6 +340,8 @@ const actions = {
           if (redisErrorMessage) {
             msg += `(${redisErrorMessage})`;
           }
+          commit('SET_STATUS', 'Disconnect');
+          state.connect = false
           alert(msg);
         }
       });

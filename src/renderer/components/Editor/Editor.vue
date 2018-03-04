@@ -38,8 +38,4 @@
     padding-right: 20px;
   }
 
-  .active, .selected {
-    color: #fff !important;
-    background-color: #116cd6 !important;
-  }
 </style>

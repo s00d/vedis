@@ -19,6 +19,7 @@
           <button class="btn btn-default">
             <span class="icon icon-arrows-ccw"></span>
           </button>
+          <add-button />
         </div>
 
     
@@ -28,41 +29,34 @@
         </div>
       </div>
     </header>
-    <div class="window-content" v-if="redis_status === 'Connected'">
-      <div class="pane-group">
+    <div class="window-content" v-if="connect">
+      <div class="pane-group" v-if="redis_status === 'Connected' ">
         <left-menu />
         <editor v-if="select" />
       </div>
+    </div>
+    <div class="window-content" v-else>
+      <connection-page  />>
     </div>
     <footer class="toolbar toolbar-footer">
       <h1 class="title"><span class="float-right">Status: <span v-text="redis_status"></span></span></h1>
     </footer>
   </div>
-  <!-- <div id="wrapper" v-if="redis_status === 'Connected'">
-    <top-menu />
-    <div class="container" style="margin-top: 60px" >
-      <div class="row">
-        <div class="col-md-3">
-          <left-menu />
-        </div>
-        <div class="col-md-9">
-          <editor></editor>
-        </div>
-      </div>
-    </div>    
-  </div> -->
 </template>
 
 <script>
   import LeftMenu from './IndexPage/LeftMenu'
   import TopMenu from './IndexPage/TopMenu'
   import Editor from './Editor/Editor'
+  import addButton from './IndexPage/addButton'
+
+  import ConnectionPage from './ConnectionPage'
   
   import { mapActions, mapGetters, mapState } from 'vuex'
 
   export default {
     name: 'index-page',
-    components: { LeftMenu, TopMenu, Editor },
+    components: { LeftMenu, TopMenu, Editor, addButton, ConnectionPage },
     methods: {
       ...mapActions({selectDB: 'selectDB'}),
       open (link) {
@@ -74,7 +68,9 @@
       ...mapState({
             count: state => state.List.count,
             db: state => state.List.config.db,
-            select: state => state.List.select
+            select: state => state.List.select,
+            config: state => state.List.config,
+            connect: state => state.List.connect,
         }),
     },
     mounted () {

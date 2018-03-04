@@ -14,7 +14,7 @@
                 <tr v-for="(text, key) in val" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, text)">
                   <td class="list-item">
                     <span v-text="key"></span>
-                    <a class="rm-btn float-right">x</a>
+                    <a class="rm-btn float-right" @click.stop="removeKey({type: 'hash', key: select.key, item: key})">x</a>
                   </td>
                 </tr>
               </tbody>
@@ -81,7 +81,7 @@
         }),
     },
     methods: {
-      ...mapActions({saveKey: 'saveKey', createKey: 'createKey'}),
+      ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey'}),
       save() {
         this.val[this.selectedItem.key] = this.selectedItem.text;
         this.saveKey({type: 'hash', item: this.selectedItem.key, val: this.selectedItem.text, key: this.select.key})
@@ -107,16 +107,6 @@
     }
   }
 </script>
-
 <style scoped>
-  .editor {
-    width: 100%;
-    height: 200px;
-  }
-
-  .active, .selected {
-    color: #fff !important;
-    background-color: #116cd6 !important;
-  }
 
 </style>

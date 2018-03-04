@@ -2,16 +2,16 @@
   <div class="pane pane-sm sidebar">
     <div class="input-group mb-12">
       <input class="form-control" type="text" placeholder="Search" v-model="pattern">
-      <div class="input-group-append">
-        <add-button></add-button>
-      </div>
     </div>
      <div>
       <table class="pane table-striped" id="list">
         <tbody class="list">
           <tr v-for="(item, key) in list" :key="key" :class="{active: item.path === selected}" @click="select(item)"  @contextmenu.prevent="ctxMenuOpen($event, item)">
             <td class="type list-item"><span class="badge badge-pill" :class="setColor(item.type)" v-text="item.type">HASH</span></td>
-            <td class="list-item"><span v-text="item.path_sbr"></span> </td>
+            <td class="list-item">
+              <span v-text="item.path_sbr"></span> 
+              <a class="rm-btn float-right" @click.stop="removeKey({type: 'string', key: item.path})">x</a>
+            </td>
           </tr>
           <tr class="next">
             <td width="20px"></td>
@@ -62,7 +62,7 @@ import contextMenu from 'vue-context-menu'
       }
     },
     methods: {
-      ...mapActions({reloadList: 'reloadList', selectItemRedis: 'selectItem'}),
+      ...mapActions({reloadList: 'reloadList', selectItemRedis: 'selectItem', removeKey: 'removeKey'}),
       setColor(type) {
         if(type === 'none') return 'badge-danger';
         if(type === 'HASH') return 'badge-primary';
@@ -78,6 +78,9 @@ import contextMenu from 'vue-context-menu'
       ctxMenuOpen(event, item) {
         this.selectItem = item
         this.$refs.ctxMenu.open(event)
+      },
+      removeItem() {
+
       }
     },
     mounted () {

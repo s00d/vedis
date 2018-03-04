@@ -48,13 +48,5 @@
 </script>
 
 <style scoped>
-  .editor {
-    width: 100%;
-    height: 200px;
-  }
 
-  .active, .selected {
-    color: #fff !important;
-    background-color: #116cd6 !important;
-  }
 </style>

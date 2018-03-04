@@ -22,7 +22,9 @@
 
 <script>
   import { mapActions, mapGetters, mapState } from 'vuex'
+  import addButton from './addButton'
   export default {
+    components: { addButton },
     data () {
       return {
         

@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <button class="btn btn-outline-secondary add" type="button" @click="show = !show">+</button>
+  <div class="btn-group">
+    <button class="btn btn-default icon icon-plus" type="button" @click="show = !show">
+ 
+    </button>
     <modal v-if="show" 
           @close="show = false" 
           @save="change" 
@@ -45,8 +47,13 @@ import modal from '../modal.vue'
     }
   }
 </script>
-<style>
+<style scoped>
   .add {
     background: #fff;
+  }
+
+  .btn-group {
+    padding-right: 2px;
+    padding-left: 2px;  
   }
 </style>

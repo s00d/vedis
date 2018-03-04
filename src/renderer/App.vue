@@ -13,7 +13,6 @@
     },
     mounted () {
       console.log('test', this.$store);
-      this.redis_connect();
 
       window.showModal = modal => {
         this.activeElement = document.activeElement
@@ -29,5 +28,29 @@
 
 <style>
   /* CSS */
+  .active, .selected {
+    color: #fff !important;
+    background-color: #116cd6 !important;
+  }
 
+  .editor {
+    width: 100%;
+    height: 200px;
+  }
+
+  .rm-btn {
+    color: red !important;
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #ffffff;
+  }
+
+  .table-striped tr:nth-child(even), thead {
+    background-color: #f5f5f4;
+  }
 </style>

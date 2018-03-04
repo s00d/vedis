@@ -16,7 +16,7 @@
                     scope="row" 
                     v-text="text">
                   </span>
-                  <a class="rm-btn float-right">x</a>
+                  <a class="rm-btn float-right" @click.stop="removeKey({type: 'set', key: select.key, item: text, id: key})">x</a>
                 </td>
               </tr>
             </tbody>
@@ -117,14 +117,4 @@
 </script>
 
 <style scoped>
-  .editor {
-    width: 100%;
-    height: 200px;
-  }
-
- .active, .selected {
-    color: #fff !important;
-    background-color: #116cd6 !important;
-  }
-
 </style>

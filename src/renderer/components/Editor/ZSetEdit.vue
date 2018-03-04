@@ -20,7 +20,7 @@
                     scope="row" 
                     v-text="item.val">
                   </span>
-                  <a class="rm-btn float-right">x</a>
+                  <a class="rm-btn float-right" @click.stop="removeKey({type: 'zset', key: select.key, item: item.val, id: key})">x</a>
                 </td>
               </tr>
             </tbody>
@@ -46,7 +46,7 @@
 
       <modal v-if="show" 
             @close="show = false" 
-            @save="change" 
+            @save="add" 
             :inputs="{
               'Name:': {type: 'string', minLength: 1},
               'Score:': {type: 'number', minLength: 1}
@@ -98,16 +98,16 @@
     methods: {
       ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey'}),
       save() {
-        this.$set(this.val[this.selectedItem.key], 'val', this.selectedItem.text);
-        console.log({type: 'zset', item: this.old, key: this.select.key});
         // @todo fix
-        // this.removeKey({type: 'zset', item: this.old, key: this.select.key});
-        // this.saveKey({type: 'zset', key: this.select.key, val: this.selectedItem.text, score: this.selectedItem.score})
+        this.saveKey({type: 'zset', key: this.select.key, val: this.selectedItem.text, score: this.selectedItem.score})
+        this.removeKey({type: 'zset', item: this.old, key: this.select.key, id: this.selectedItem.key});
+        this.$set(this.val, this.selectedItem.key, {val: this.selectedItem.text, score: this.selectedItem.score});
       },
       selectItem(key, item) {
         this.selectedItem.key = key;
         this.selectedItem.text = item.val;
         this.selectedItem.score = item.score;
+        this.old = this.selectedItem.text
       },
       add(data) {
         this.saveKey({type: 'zset', key: this.select.key, val: data['Name:'], score: data['Score:']})
@@ -130,13 +130,5 @@
 </script>
 
 <style scoped>
-  .editor {
-    width: 100%;
-    height: 200px;
-  }
-
-  .active, .selected {
-    color: #fff !important;
-    background-color: #116cd6 !important;
-  }
+ 
 </style>

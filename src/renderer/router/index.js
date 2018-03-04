@@ -6,13 +6,18 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'landing-page',
+      path: '/db',
+      name: 'db-page',
       component: require('@/components/IndexPage').default
     },
     {
+      path: '/connection1',
+      name: 'connection-page',
+      component: require('@/components/ConnectionPage').default
+    },
+    {
       path: '*',
-      redirect: '/'
+      redirect: '/db'
     }
   ]
 })
