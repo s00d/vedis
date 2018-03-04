@@ -209,7 +209,7 @@
   }
 
   .pane {
-    padding: 30px 300px; 
+    padding: 30px 200px; 
   }
   
   form {
