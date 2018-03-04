@@ -26,7 +26,6 @@ const mutations = {
   },
   SET_CONFIG(state, params) {
     Vue.set(state, 'config', Object.assign(state.config, params))
-    state.connect = true;
   },
   SET_STATUS(state, status) {
     state.status = status
@@ -38,7 +37,6 @@ const mutations = {
 
 const actions = {
   setConfig({ dispatch, commit, state }, config) {
-    console.log(config);
     commit('SET_CONFIG', config);  
     dispatch('connectToRedis');
     // dispatch('reloadList');
@@ -292,9 +290,6 @@ const actions = {
         lua: 'local dump = redis.call("dump", KEYS[1]) local pttl = 0 if ARGV[1] == "TTL" then pttl = redis.call("pttl", KEYS[1]) end return redis.call("restore", KEYS[2], pttl, dump)'
       });
 
-      console.log(redis, state.config);
-
-
       redis.once('connect', function () {
         redis.ping((err, res) => {
           if (err) {
@@ -321,6 +316,7 @@ const actions = {
           }
           commit('SET_STATUS', 'Connected');
           commit('SET_INSTANCE', redis)
+          state.connect = true;
         })
 
         

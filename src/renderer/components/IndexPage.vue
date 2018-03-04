@@ -30,7 +30,7 @@
       </div>
     </header>
     <div class="window-content" v-if="connect">
-      <div class="pane-group" v-if="redis_status === 'Connected' ">
+      <div class="pane-group">
         <left-menu />
         <editor v-if="select" />
       </div>
