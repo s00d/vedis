@@ -20,27 +20,31 @@
       <change beforePath="" afterPath="$PROJECT_DIR$/package-lock.json" />
       <change beforePath="" afterPath="$PROJECT_DIR$/package.json" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/main/index.dev.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/index.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/redis.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/App.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/assets/.gitkeep" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/assets/logo.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/Editor.vue" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage/TopMenu.vue" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage/addButton.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/LandingPage.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/LandingPage/SystemInformation.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/components/modal.vue" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/main.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/router/index.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/store/index.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/store/modules/Config.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/src/renderer/store/modules/index.js" />
       <change beforePath="" afterPath="$PROJECT_DIR$/static/.gitkeep" />
       <change beforePath="$PROJECT_DIR$/.vscode/temp.sql" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/index.ejs" afterPath="$PROJECT_DIR$/src/index.ejs" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/App.vue" afterPath="$PROJECT_DIR$/src/renderer/App.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/Editor/Editor.vue" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/Editor.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/Editor/HashEdit.vue" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/HashEdit.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/Editor/ListEdit.vue" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/ListEdit.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/Editor/SetEdit.vue" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/SetEdit.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/Editor/StringEdit.vue" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/StringEdit.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/Editor/ZSetEdit.vue" afterPath="$PROJECT_DIR$/src/renderer/components/Editor/ZSetEdit.vue" />
       <change beforePath="$PROJECT_DIR$/src/renderer/components/IndexPage.vue" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage.vue" />
       <change beforePath="$PROJECT_DIR$/src/renderer/components/IndexPage/LeftMenu.vue" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage/LeftMenu.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/components/IndexPage/TopMenu.vue" afterPath="$PROJECT_DIR$/src/renderer/components/IndexPage/TopMenu.vue" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/router/index.js" afterPath="$PROJECT_DIR$/src/renderer/router/index.js" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/store/modules/List.js" afterPath="$PROJECT_DIR$/src/renderer/store/modules/List.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -141,12 +145,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520094345517</updated>
-      <workItem from="1520094347529" duration="3295000" />
+      <workItem from="1520094347529" duration="3908000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3295000" />
+    <option name="totallyTimeSpent" value="3908000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1212" height="1027" extended-state="0" />

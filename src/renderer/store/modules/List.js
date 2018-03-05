@@ -34,7 +34,7 @@ const getters = {
 
 const mutations = {
   SELECT_DB (state, db) {
-    state.tabs[state.tab].config.db = db
+    Vue.set(state.tabs[state.tab].config, 'db', db)
     state.tabs[state.tab].instance.select(db);
   },
   SET_CONFIG(state, params) {
