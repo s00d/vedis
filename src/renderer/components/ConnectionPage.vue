@@ -2,20 +2,32 @@
   <div class="window">
     <div class="window-content">
       <div class="pane-group">
-        <div class="pane-sl sidebar">
-          <nav class="nav-group">
-            <h5 class="nav-group-title">Favorites</h5>
-            <a class="nav-group-item" v-for="(fav, id) in favorites.data" :key="id" @click="favoriveSelect(fav, id)" :class="{active: favoriteSelected === id}">
-              <span class="icon icon-star-empty"></span>
-              <span v-text="fav.name"></span>
-              <a class="rm-btn float-right" @click="removeFavorite(fav, id)">x</a>
-                 
-            </a>
-          </nav>
+        <div class="pane pane-sl sidebar">
+          <div style="flex: 1 1 0%; display: flex; flex-direction: column; overflow-y: hidden;">
+            <nav class="nav-group">
+              <h5 class="nav-group-title">Favorites</h5>
+              <a class="nav-group-item" v-for="(fav, id) in favorites.data" :key="id" @click="favoriveSelect(fav, id)" :class="{active: favoriteSelected === id}">
+                <span class="icon icon-star-empty"></span>
+                <span v-text="fav.name"></span>
+                <a class="rm-btn float-right" @click="removeFavorite(id)">x</a>
+                  
+              </a>
+            </nav>
+            <footer class="toolbar toolbar-footer">
+              <button @click="addFavorite">+</button>
+              <button @click="removeFavorite(favoriteSelected)">-</button>
+            </footer>
+          </div>
+          
         </div>
-        <div class="pane">
+        <div class="pane pane-border">
           <form>
-            
+            <div class="form-group row" v-if="favoriteSelected">
+              <label for="example-text-input" class="col-4 col-form-label">Name: </label>
+              <div class="col-8">
+                <input class="form-control" type="text" placeholder="127.0.0.1" v-model="config.name">
+              </div>
+            </div>
             
             <div class="form-group row">
               <label for="example-text-input" class="col-4 col-form-label">Redis HOST: </label>
@@ -131,7 +143,9 @@
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="btn btn-form btn-default" @click="addFavorite">Add to favorite</button>
+              
+              <button type="submit" class="btn btn-form btn-default" @click="updateFavorite" v-if="favoriteSelected">update</button>
+              <button type="submit" class="btn btn-form btn-default" @click="addFavorite" v-else>Add to favorite</button>
               <button type="submit" class="btn btn-form btn-primary float-right" @click="set">Connect</button>
             </div>
           </form>
@@ -148,10 +162,10 @@
   import { LocalStore } from '../../store.js'
   const store = new LocalStore({
     configName: 'favorites',
+    autoSave: true,
     defaults: {}
   });
   // store.clear();
-  console.log('store', store);
 
   export default {
     name: 'index-page',
@@ -206,14 +220,15 @@
       set() {
         this.setConfig(this.config)
       },
-      addFavorite() {
+      addFavorite () {
         this.config.name = 'Tab: ' + this.config.host;
         this.favorites.set(Object.keys(this.favorites.data).length + 1, JSON.parse(JSON.stringify(this.config)));
-        this.favorites.save()
       },
-      removeFavorite(fav, id) {
+      removeFavorite (id) {
         this.favorites.del(id);
-        this.favorites.save()
+      },
+      updateFavorite () {
+        this.favorites.set(this.favoriteSelected, JSON.parse(JSON.stringify(this.config)));
       },
       favoriveSelect (fav, id) {
         this.$set(this, 'config', fav);
@@ -234,7 +249,7 @@
     padding: 3px;
   }
 
-  .pane {
+  .pane-border {
     padding: 30px 200px; 
   }
   
@@ -250,5 +265,27 @@
   .pane-sl {
     max-width: 250px;
     min-width: 220px
-}
+  }
+
+  .sidebar {
+    background: #f5f5f4;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar .nav-group {
+    overflow: auto;
+    flex: 1;
+  }
+
+  .toolbar-footer button {
+    width: 30px;
+    border: none;
+    border-right: 1px solid #c2c0c2;
+    box-shadow: 1px 0px 0px 0px rgba(255, 255, 255, 0.4);
+    background: transparent;
+    font-size: 18px;
+    line-height: 19px;
+    opacity: 0.8;
+  }
 </style>
