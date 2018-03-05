@@ -8,13 +8,13 @@ import Vue from 'vue';
 const state = {
   tabs: [
     {
-      name: 'tab 0',
-
       list: {},
       select: false,
       status: 'not connected',
       connect: false,
-      config: {},
+      config: {
+        name: 'tab 0',
+      },
       instance: null,
       pattern: '*' ,
       fetchCount: 100,
@@ -48,12 +48,13 @@ const mutations = {
   },
   ADD_NEW_TAB(state) {
     state.tabs.push({
-      name: 'tab ' + Object.keys(state.tabs).length,
       list: {},
       select: false,
       status: 'not connected',
       connect: false,
-      config: {},
+      config: {
+        name: 'tab ' + Object.keys(state.tabs).length,
+      },
       instance: null,
       pattern: '*' ,
       fetchCount: 100,

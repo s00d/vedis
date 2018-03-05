@@ -2,12 +2,14 @@
   <div class="window">
     <div class="window-content">
       <div class="pane-group">
-        <div class="pane-sm sidebar">
+        <div class="pane-sl sidebar">
           <nav class="nav-group">
             <h5 class="nav-group-title">Favorites</h5>
-            <a class="nav-group-item">
+            <a class="nav-group-item" v-for="(fav, id) in favorites.data" :key="id" @click="favoriveSelect(fav, id)" :class="{active: favoriteSelected === id}">
               <span class="icon icon-star-empty"></span>
-              no data
+              <span v-text="fav.name"></span>
+              <a class="rm-btn float-right" @click="removeFavorite(fav, id)">x</a>
+                 
             </a>
           </nav>
         </div>
@@ -129,7 +131,7 @@
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="btn btn-form btn-default">Add to favorite</button>
+              <button type="submit" class="btn btn-form btn-default" @click="addFavorite">Add to favorite</button>
               <button type="submit" class="btn btn-form btn-primary float-right" @click="set">Connect</button>
             </div>
           </form>
@@ -143,6 +145,13 @@
 
 <script> 
   import { mapActions, mapGetters, mapState } from 'vuex'
+  import { LocalStore } from '../../store.js'
+  const store = new LocalStore({
+    configName: 'favorites',
+    defaults: {}
+  });
+  // store.clear();
+  console.log('store', store);
 
   export default {
     name: 'index-page',
@@ -150,7 +159,11 @@
       return {
         ssh: false,
         sshTunnel: false,
+        
+        favorites: store,
+        favoriteSelected: false,
         config: {
+          name: 'Tab',
           db: 0,
 
           host: '127.0.0.1',
@@ -192,6 +205,19 @@
       },
       set() {
         this.setConfig(this.config)
+      },
+      addFavorite() {
+        this.config.name = 'Tab: ' + this.config.host;
+        this.favorites.set(Object.keys(this.favorites.data).length + 1, JSON.parse(JSON.stringify(this.config)));
+        this.favorites.save()
+      },
+      removeFavorite(fav, id) {
+        this.favorites.del(id);
+        this.favorites.save()
+      },
+      favoriveSelect (fav, id) {
+        this.$set(this, 'config', fav);
+        this.favoriteSelected = id;
       }
     },
     computed: {
@@ -220,4 +246,9 @@
   .span-label {
     padding-left: 15px;
   }
+
+  .pane-sl {
+    max-width: 250px;
+    min-width: 220px
+}
 </style>

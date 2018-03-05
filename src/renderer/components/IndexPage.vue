@@ -3,7 +3,7 @@
     <div class="tab-group">
       <div class="tab-item" v-for="(item, key) in tabs" :key="key" :class="{active: key === tab}" @click="selectTab(key)">
         <span class="icon icon-cancel icon-close-tab"></span>
-        <span v-text="item.name"></span>
+        <span v-text="item.config.name"></span>
       </div>
       <div class="tab-item tab-item-fixed" @click="addNewTab">
         <span class="icon icon-plus"></span>
