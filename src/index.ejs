@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>vedis</title>
     <link rel="stylesheet" href="/static/css/photon.min.css">
+    <link href="/static/jquery.terminal-1.12.1.min.css" rel="stylesheet"/>
 
     <% if (htmlWebpackPlugin.options.nodeModules) { %>
       <!-- Add `node_modules/` to global paths so `require` works properly in development -->
@@ -13,6 +14,10 @@
     <% } %>
   </head>
   <body data-gr-c-s-loaded="true" class="vsc-initialized">
+    <script>
+      window.$ = window.jQuery = require('jquery');
+      window.Buffer = global.Buffer;
+    </script>
     <div id="app"></div>
     <!-- Set `__static` path to static files in production -->
     <script>

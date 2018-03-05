@@ -1,23 +1,42 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">VEDIS</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <header class="toolbar toolbar-header">
+    <div class="tab-group">
+      <div class="tab-item" v-for="(item, key) in tabs" :key="key" :class="{active: key === tab}" @click="selectTab(key)">
+        <span class="icon icon-cancel icon-close-tab"></span>
+        <span v-text="item.config.name"></span>
+      </div>
+      <div class="tab-item tab-item-fixed" @click="addNewTab">
+        <span class="icon icon-plus"></span>
+      </div>
+    </div>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DB: <span v-text="db"></span></a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#" v-for="db in count" :key="db-1" v-text="db-1" @click="selectDB(db-1)"></a>
-            </div>
-          </li>
-        </ul>
+    <div class="toolbar-actions">
+      <div class="btn-group">
+          <div class="navbar-brand" href="#">VEDIS</div>
+        <button class="btn btn-default">
+          <span class="icon icon-home"></span>
+        </button>
+        <button class="btn btn-default">
+          <span class="icon icon-arrows-ccw"></span>
+        </button>
+        <add-button v-if="connect"/>
+
+        <button class="btn btn-default" @click="selectType('editor')" v-if="connect" :disabled="type === 'editor'">
+          <span class="icon icon-pencil"></span>
+        </button>
+
+        <button class="btn btn-default" @click="selectType('terminal')" v-if="connect" :disabled="type === 'terminal'">
+          <span class="icon icon-window"></span>
+        </button>
       </div>
 
-      <a class="navbar-brand" href="#">Status: <span v-text="redis_status"></span></a>
-    </nav>
+  
+      <button v-if="connect" class="btn btn-default btn-dropdown pull-right dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DB: <span v-text="config.db"></span></button>
+      <div class="dropdown-menu" aria-labelledby="dropdown01" v-if="connect">
+        <a class="dropdown-item" href="#" v-for="db in count" :key="db-1" v-text="db-1" @click="selectDB(db-1)"></a>
+      </div>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -31,21 +50,31 @@
       }
     },
     methods: {
-      ...mapActions({selectDB: 'selectDB'}),
+      ...mapActions({selectDB: 'selectDB', addNewTab: 'addNewTab', selectTab: 'selectTab', selectType: 'selectType'}),
     },
     computed: {
       ...mapGetters({
         selectedTab: 'selectedTab'
       }),
+      ...mapState({
+        tabs: state => state.List.tabs,
+        tab: state => state.List.tab,
+      }),
+      config: function() {
+        return this.selectedTab.config
+      },
       count: function() {
         return this.selectedTab.count
       },
-      db: function() {
-        return this.selectedTab.config.db
-      },
       redis_status: function() {
         return this.selectedTab.redis_status
-      }
+      },
+      connect: function() {
+        return this.selectedTab.connect
+      },
+      type: function() {
+        return this.selectedTab.type
+      },
     },
     mounted () {
 

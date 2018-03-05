@@ -40,7 +40,6 @@ import modal from '../modal.vue'
         this.createKey({key: data['Key Name:'], type: data['Type:']})
         this.show = false;
       },
-      
     },
     mounted () {
      

@@ -21,7 +21,8 @@ const state = {
       fetchCount: 100,
       cursor: 0,
       count: 16,
-      sort: false
+      sort: false,
+      type: 'editor'
     }
   ],
   tab: 0,
@@ -69,7 +70,8 @@ const mutations = {
       fetchCount: 100,
       cursor: 0,
       count: 16,
-      sort: false
+      sort: false,
+      type: 'editor'
     })
     state.tab = Object.keys(state.tabs).length - 1
   },
@@ -79,6 +81,9 @@ const mutations = {
 }
 
 const actions = {
+  selectType({ dispatch, commit, state }, type) {
+    state.tabs[state.tab].type = type
+  },
   addNewTab({ dispatch, commit, state }) {
     commit('ADD_NEW_TAB');  
   },
