@@ -250,12 +250,14 @@
   }
 
   .pane-border {
-    padding: 30px 200px; 
+    padding: 30px 150px; 
+    background-color: #e8e8e8;
   }
-  
-  form {
-    padding: 10px; 
+
+  .pane-border > form {
+    background-color: #f5f5f4;
     border: 1px solid gray;
+    padding: 10px; 
   }
 
   .span-label {
