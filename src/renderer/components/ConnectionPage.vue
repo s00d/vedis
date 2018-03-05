@@ -6,7 +6,7 @@
           <div style="flex: 1 1 0%; display: flex; flex-direction: column; overflow-y: hidden;">
             <nav class="nav-group">
               <h5 class="nav-group-title">Favorites</h5>
-              <a class="nav-group-item" v-for="(fav, id) in favorites.data" :key="id" @click="favoriveSelect(fav, id)" :class="{active: favoriteSelected === id}">
+              <a class="nav-group-item" v-for="(fav, id) in favorites.data" :key="id" @dblclick="connect" @click="favoriveSelect(fav, id)" :class="{active: favoriteSelected === id}">
                 <span class="icon icon-star-empty"></span>
                 <span v-text="fav.name"></span>
                 <a class="rm-btn float-right" @click="removeFavorite(id)">x</a>
@@ -146,7 +146,7 @@
               
               <button type="submit" class="btn btn-form btn-default" @click="updateFavorite" v-if="favoriteSelected">update</button>
               <button type="submit" class="btn btn-form btn-default" @click="addFavorite" v-else>Add to favorite</button>
-              <button type="submit" class="btn btn-form btn-primary float-right" @click="set">Connect</button>
+              <button type="submit" class="btn btn-form btn-primary float-right" @click="connect">Connect</button>
             </div>
           </form>
 
@@ -217,7 +217,7 @@
       tlscertClick() {
         this.config.tlscaClick = e.target.files[0];
       },
-      set() {
+      connect() {
         this.setConfig(this.config)
       },
       addFavorite () {
