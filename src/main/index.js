@@ -1,5 +1,6 @@
-import { app, BrowserWindow, Menu } from 'electron'
-
+import { app, BrowserWindow, Menu, shell } from 'electron'
+const defaultMenu = require('electron-default-menu');
+const dialog = require('dialog');
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -17,11 +18,71 @@ function createWindow () {
   /**
    * Initial window options
    */
+
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
-    width: 1000
+    width: 1000,
   })
+
+
+  const menu = defaultMenu(app, shell);
+
+  console.log(menu);
+  menu.splice(4, 1);
+  menu.splice(1, 0, 
+    {
+      label: 'File',
+      submenu: [{
+        label: 'New Connection Window',
+        accelerator: 'CmdOrCtrl+N',
+        click() {
+          createWindow();
+        }
+      }, {
+        label: 'New Connection Tab',
+        accelerator: 'CmdOrCtrl+T',
+        click() {
+          mainWindow.current.webContents.send('action', 'createInstance');
+        }
+      }, {
+        type: 'separator'
+      }, {
+        label: 'Close Window',
+        accelerator: 'Shift+CmdOrCtrl+W',
+        click() {
+          mainWindow.current.close();
+        }
+      }, {
+        label: 'Close Tab',
+        accelerator: 'CmdOrCtrl+W',
+        click() {
+          mainWindow.current.webContents.send('action', 'delInstance');
+        }
+      }]
+    }
+  )
+
+  menu.splice(5, 0, 
+    {
+      label: 'Help',
+      role: 'help',
+      submenu: [{
+        label: 'Report an Issue...',
+        click() {
+          require('shell').openExternal('mailto:Vurus191288@gmail.com');
+        }
+      }, {
+        label: 'Learn More',
+        click() {
+          require('shell').openExternal('https://github.com/s00d/vedis');
+        }
+      }]
+    }
+  )
+
+  
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
 
   mainWindow.loadURL(winURL)
 

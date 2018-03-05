@@ -1,16 +1,16 @@
 <template>
   <div class="pane-group">
     <div class="pane pane-sm sidebar">
-        <div class="input-group mb-12">
-          <input type="text" class="form-control" placeholder="Search" />
+        <div class="input-group mb-12 search">
+          <input type="text" class="form-control" placeholder="Search" v-model="filter"/>
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary add" type="button" @click="show = !show">+</button>
+            <button class="btn btn-sm btn-outline-secondary add" type="button" @click="show = !show">+</button>
           </div>
         </div>
-        <div>
+        <div class="list-padding">
           <table class="pane table-striped" id="list">
             <tbody class="list">
-              <tr v-for="(text, key) in val" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, text)">
+              <tr v-for="(text, key) in getFilterList" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, text)">
                 <td class="list-item">
                   <span 
                     scope="row" 
@@ -65,6 +65,7 @@
           key: '', 
           text: ''
         },
+        filter: '',
         show: false
       }
     },
@@ -77,18 +78,22 @@
           text: this.val[Object.keys(this.val)[0]]
         }
         this.old = this.selectedItem.text;
+      },
+      filter(val) {
+        this.setFilter(val)
       }
     },
     computed: {
       ...mapGetters({
-        selectedTab: 'selectedTab'
+        selectedTab: 'selectedTab',
+        getFilterList: 'getFilterList'
       }),
       select: function() {
         return this.selectedTab.select
       },
     },
     methods: {
-      ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey'}),
+      ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey', setFilter: 'setFilter'}),
       save() {
         this.val[this.selectedItem.key] = this.selectedItem.text;
         this.removeKey({type: 'set', old: this.old, key: this.select.key});

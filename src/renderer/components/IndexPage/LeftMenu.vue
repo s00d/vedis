@@ -1,9 +1,9 @@
 <template>
   <div class="pane pane-sm sidebar">
-    <div class="input-group mb-12">
+    <div class="input-group mb-12 search">
       <input class="form-control" type="text" placeholder="Search" v-model="pattern">
     </div>
-     <div>
+    <div class="list-padding">
       <table class="pane table-striped" id="list">
         <tbody class="list">
           <tr v-for="(item, key) in list" :key="key" :class="{active: item.path === selected}" @click="select(item)"  @contextmenu.prevent="ctxMenuOpen($event, item)">
@@ -132,4 +132,6 @@ import contextMenu from 'vue-context-menu'
     background-color: #f5f5f5;
     cursor: normal;
 }
+
+
 </style>

@@ -17,6 +17,7 @@ const state = {
       },
       instance: null,
       pattern: '*' ,
+      filter: '',
       fetchCount: 100,
       cursor: 0,
       count: 16,
@@ -29,6 +30,13 @@ const state = {
 const getters = {
   selectedTab: state => {
     return state.tabs[state.tab]
+  },
+  getFilterList: state => {
+    if(state.tabs[state.tab].filter.length === 0) return state.tabs[state.tab].select.val
+    var re = new RegExp(state.tabs[state.tab].filter);
+    return _.pickBy(state.tabs[state.tab].select.val, function(value, key) {
+      return key.match( re ) || (typeof value === 'string' && value.match( re )) || (typeof value === 'object' && value.val.match( re ))
+    });
   }
 }
 
@@ -57,18 +65,25 @@ const mutations = {
       },
       instance: null,
       pattern: '*' ,
+      filter: '',
       fetchCount: 100,
       cursor: 0,
       count: 16,
       sort: false
     })
     state.tab = Object.keys(state.tabs).length - 1
-},
+  },
+  SET_FILTER(state, filter) {
+    Vue.set(state.tabs[state.tab], 'filter', filter)
+  }
 }
 
 const actions = {
   addNewTab({ dispatch, commit, state }) {
     commit('ADD_NEW_TAB');  
+  },
+  setFilter({ dispatch, commit, state }, filter) {
+    commit('SET_FILTER', filter);  
   },
   selectTab({ dispatch, commit, state }, tab) {
     state.tab = tab
@@ -273,7 +288,7 @@ const actions = {
     //     })
     //   }).on('error', err => {
     //     sshErrorThrown = true;
-          // commit('SET_STATUS', 'Disconnect');
+    //       commit('SET_STATUS', 'Disconnect');
     //     alert(`SSH Error: ${err.message}`);
     //   })
   

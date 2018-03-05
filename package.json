@@ -1,5 +1,6 @@
 {
   "name": "vedis",
+  "productName": "vedis",
   "version": "0.0.0",
   "author": "s00d <Virus191288@gmail.com>",
   "description": "Vue redis GUI",
@@ -18,7 +19,7 @@
   },
   "build": {
     "productName": "vedis",
-    "appId": "org.simulatedgreg.electron-vue",
+    "appId": "org.simulatedgreg.vedis-vue",
     "directories": {
       "output": "build"
     },
@@ -53,6 +54,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap-4": "^4.0.0",
+    "dialog-node": "^0.1.5",
     "electron-context-menu": "^0.9.1",
     "hiredis": "^0.5.0",
     "ioredis": "^3.2.2",
@@ -83,9 +85,11 @@
     "css-loader": "^0.28.4",
     "del": "^3.0.0",
     "devtron": "^1.4.0",
+    "dialog": "^0.3.1",
     "electron": "^1.8.2",
     "electron-builder": "^20.2.0",
     "electron-debug": "^1.5.0",
+    "electron-default-menu": "^1.0.1",
     "electron-devtools-installer": "^2.2.3",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",

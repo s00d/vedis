@@ -56,5 +56,20 @@
 
   .tab-item.active {
     color: black !important;
+  }
+
+  .search {
+    position: fixed;
+    z-index: 1000;
+    width: 220px;
+    height: 26px;
 }
+
+  .list-padding {
+    padding-top: 28px;
+  }
+
+  .add {
+    padding: 0 .5rem;
+  }
 </style>

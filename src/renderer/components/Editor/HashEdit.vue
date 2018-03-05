@@ -2,16 +2,16 @@
   <div class="pane-group">
     
       <div class="pane pane-sm sidebar">
-          <div class="input-group mb-12">
-            <input type="text" class="form-control" placeholder="Search" />
+          <div class="input-group mb-12 search">
+            <input type="text" class="form-control" placeholder="Search" v-model="filter" />
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary add" type="button" @click="show = !show">+</button>
+              <button class="btn btn-sm btn-outline-secondary add" type="button" @click="show = !show">+</button>
             </div>
           </div>
-          <div>
+          <div class="list-padding">
             <table class="pane table-striped" id="list">
               <tbody class="list">
-                <tr v-for="(text, key) in val" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, text)">
+                <tr v-for="(text, key) in getFilterList" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, text)">
                   <td class="list-item">
                     <span v-text="key"></span>
                     <a class="rm-btn float-right" @click.stop="removeKey({type: 'hash', key: select.key, item: key})">x</a>
@@ -62,7 +62,8 @@
           key: '', 
           text: ''
         },
-        show: false
+        show: false,
+        filter: ''
       }
     },
     watch: {
@@ -73,18 +74,22 @@
           key: Object.keys(this.val)[0],
           text: this.val[Object.keys(this.val)[0]]
         }
+      },
+      filter(val) {
+        this.setFilter(val)
       }
     },
     computed: {
       ...mapGetters({
-        selectedTab: 'selectedTab'
+        selectedTab: 'selectedTab',
+        getFilterList: 'getFilterList'
       }),
       select: function() {
         return this.selectedTab.select
       },
     },
     methods: {
-      ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey'}),
+      ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey', setFilter: 'setFilter'}),
       save() {
         this.val[this.selectedItem.key] = this.selectedItem.text;
         this.saveKey({type: 'hash', item: this.selectedItem.key, val: this.selectedItem.text, key: this.select.key})
@@ -94,7 +99,6 @@
         this.selectedItem.text = text;
       },
       change(data) {
-        console.log(data)
         this.saveKey({type: 'hash', item: data['Name:'], key: this.select.key})
         this.val[data['Name:']] = 'New Value';
         this.show = false;
