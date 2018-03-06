@@ -1,8 +1,8 @@
 <template>
   <div class="btn-group">
-    <button class="btn btn-default icon icon-plus" type="button" @click="show = !show">
- 
-    </button>
+    <div class="top-item" @click="show = !show">
+      <span class="icon icon-plus"></span>Add
+    </div>
     <modal v-if="show" 
           @close="show = false" 
           @save="change" 

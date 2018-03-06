@@ -72,4 +72,20 @@
   .add {
     padding: 0 .5rem;
   }
+
+  .top-item {
+      display: inline-block;
+      padding: 12px;
+      cursor: pointer;
+  }
+  .top-item:hover {
+    background-color: #e8e6e8;
+  }
+  .top-item.active {
+    background: #dbdfe1;
+  }
+
+  .top-item .icon {
+    margin-right: 5px;
+  }
 </style>

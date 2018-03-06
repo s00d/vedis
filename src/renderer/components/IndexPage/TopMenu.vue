@@ -12,26 +12,27 @@
 
     <div class="toolbar-actions">
       <div class="btn-group">
-          <div class="navbar-brand" href="#">VEDIS</div>
-        <button class="btn btn-default">
-          <span class="icon icon-home"></span>
-        </button>
-        <button class="btn btn-default">
-          <span class="icon icon-arrows-ccw"></span>
-        </button>
-        <add-button v-if="connect"/>
+          <div class="navbar-brand" href="#" style="padding-top: 10px;">VEDIS</div>
+          <div class="top-item">
+            <span class="icon icon-home"></span>Connect
+          </div>
 
-        <button class="btn btn-default" @click="selectType('editor')" v-if="connect" :disabled="type === 'editor'">
-          <span class="icon icon-pencil"></span>
-        </button>
+          <div class="top-item">
+            <span class="icon icon-arrows-ccw"></span>Refresh
+          </div>
+          <add-button v-if="connect"/>
 
-        <button class="btn btn-default" @click="selectType('terminal')" v-if="connect" :disabled="type === 'terminal'">
-          <span class="icon icon-window"></span>
-        </button>
+          <div class="top-item" @click="selectType('editor')" v-if="connect" :class="{active: type === 'editor'}">
+            <span class="icon icon-pencil"></span>Editor
+          </div>
+
+          <div class="top-item" @click="selectType('terminal')" v-if="connect" :class="{active: type === 'terminal'}">
+            <span class="icon icon-pencil"></span>Terminal
+          </div>
       </div>
 
   
-      <button v-if="connect" class="btn btn-default btn-dropdown pull-right dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DB: <span v-text="config.db"></span></button>
+      <div v-if="connect" class="top-item btn-dropdown pull-right dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DB: <span v-text="config.db"></span></div>
       <div class="dropdown-menu" aria-labelledby="dropdown01" v-if="connect">
         <a class="dropdown-item" href="#" v-for="db in count" :key="db-1" v-text="db-1" @click="selectDB(db-1)"></a>
       </div>
@@ -83,5 +84,20 @@
 </script>
 
 <style scoped>
+  .toolbar-actions > .btn-group > .btn {
+    display: inline-block;
+    padding: 12px;
+
+  }
+
+  .toolbar-actions {
+    margin: 0;
+    padding: 0;
+  }
+
+  .toolbar-actions > .btn-group {
+    margin: 0;
+    padding: 0 20px;
+  }
   
 </style>

@@ -4,8 +4,15 @@
     <meta charset="utf-8">
     <title>vedis</title>
     <link rel="stylesheet" href="/static/css/photon.min.css">
-    <link href="/static/jquery.terminal-1.12.1.min.css" rel="stylesheet"/>
 
+    <style>
+    html, body {
+      height:100%; /*both html and body*/
+    }
+    body {
+      margin: 0; /*reset default margin*/
+    }
+    </style>
     <% if (htmlWebpackPlugin.options.nodeModules) { %>
       <!-- Add `node_modules/` to global paths so `require` works properly in development -->
       <script>
