@@ -180,19 +180,19 @@ const actions = {
     let redisErrorMessage
   
     if (getters.selectedTab.config.sshTunnel) {
-      sshRedis();
+      sshRedis(getters.selectedTab.config);
     } else {
-      handleRedis({});
+      handleRedis(getters.selectedTab.config, {});
     }
 
-    function sshRedis() {
+    function sshRedis(config) {
       commit('SET_STATUS', 'SSH connecting...');
   
       const conn = new Client();
       conn.on('ready', () => {
         const server = net.createServer(function (sock) {
           console.log(sock);
-          conn.forwardOut(sock.remoteAddress, sock.remotePort, getters.selectedTab.config.host, getters.selectedTab.config.port, (err, stream) => {
+          conn.forwardOut(sock.remoteAddress, sock.remotePort, config.host, config.port, (err, stream) => {
             if (err) {
               sock.end()
             } else {
@@ -200,7 +200,7 @@ const actions = {
             }
           })
         }).listen(0, function () {
-          handleRedis(getters.selectedTab.config, { host: '127.0.0.1', port: server.address().port })
+          handleRedis(config, { host: '127.0.0.1', port: server.address().port })
         })
       }).on('error', err => {
         sshErrorThrown = true;
@@ -210,21 +210,21 @@ const actions = {
   
       try {
         const connectionConfig = {
-          host: getters.selectedTab.config.sshHost,
-          port: getters.selectedTab.config.sshPort || 22,
-          username: getters.selectedTab.config.sshUser
+          host: config.sshHost,
+          port: config.sshPort || 22,
+          username: config.sshUser
         }
         console.log(connectionConfig);
         if (getters.selectedTab.sshKey) {
           console.log(1);
           conn.connect(Object.assign(connectionConfig, {
-            privateKey: getters.selectedTab.config.sshKey,
-            passphrase: getters.selectedTab.config.sshKeyPassphrase
+            privateKey: config.sshKey,
+            passphrase: config.sshKeyPassphrase
           }))
         } else {
-          console.log(getters.selectedTab.config.sshPassword);
+          console.log(config.sshPassword);
           conn.connect(Object.assign(connectionConfig, {
-            password: getters.selectedTab.config.sshPassword
+            password: config.sshPassword
           }))
         }
       } catch (err) {
@@ -233,16 +233,17 @@ const actions = {
       }
     }
   
-    function handleRedis(override) {
+    function handleRedis(config, override) {
       commit('SET_STATUS', 'Redis connecting...');
       if (getters.selectedTab.config.ssl) {
         let tls = {};
-        if (getters.selectedTab.config.tlsca) tls.ca = getters.selectedTab.config.tlsca;
-        if (getters.selectedTab.config.tlskey) tls.key = getters.selectedTab.config.tlskey;
-        if (getters.selectedTab.config.tlscert) tls.cert = getters.selectedTab.config.tlscert;
-        Vue.set(getters.selectedTab.config, 'tls', tls);
+        if (config.tlsca) tls.ca = config.tlsca;
+        if (config.tlskey) tls.key = config.tlskey;
+        if (config.tlscert) tls.cert = config.tlscert;
+        Vue.set(config, 'tls', tls);
       }
-      const redis = new Redis(_.assign({}, getters.selectedTab.config, override, {
+
+      const redis = new Redis(_.assign({}, config, override, {
         retryStrategy() {
           return false;
         }
@@ -286,7 +287,7 @@ const actions = {
           }
           commit('SET_STATUS', 'Connected');
           commit('SET_INSTANCE', redis)
-          getters.selectedTab.config.name += " - " + getters.selectedTab.config.host + ":" + getters.selectedTab.config.port
+          config.name += " - " + config.host + ":" + config.port
           getters.selectedTab.connect = true;
         })
 
