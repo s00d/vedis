@@ -19,6 +19,8 @@
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
 import modal from '../modal.vue'
+const { remote } = require('electron')
+
 
   export default {
     data () {
@@ -36,7 +38,6 @@ import modal from '../modal.vue'
     methods: {
       ...mapActions({createKey: 'createKey'}),
       change(data) {
-        console.log(data)
         this.createKey({key: data['Key Name:'], type: data['Type:']})
         this.show = false;
       },

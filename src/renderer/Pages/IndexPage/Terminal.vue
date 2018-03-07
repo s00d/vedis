@@ -68,7 +68,7 @@
           this.$events.$emit('disconect-monitor');
           this.responses.push({response: 'Disconected!'});
           this.activatePrompt()
-          console.log('exit');
+
         }
       },
       runCommand () {

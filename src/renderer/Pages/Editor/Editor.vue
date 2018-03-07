@@ -1,6 +1,6 @@
 <template>
   <div class="pane">
-    <string-edit v-if="select.type === 'STR'" />
+    <string-edit v-if="select.type === 'STRING'" />
     <hash-edit v-else-if="select.type === 'HASH'" />
 
     <list-edit v-else-if="select.type === 'LIST'" />

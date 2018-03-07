@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/db',
       name: 'db-page',
-      component: require('@/components/IndexPage').default
+      component: require('@/Pages/IndexPage').default
     },
     {
       path: '*',

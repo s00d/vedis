@@ -1,20 +1,21 @@
 <template>
   <div class="pane-group">
       <div class="pane pane-sm sidebar">
-          <div class="input-group mb-12 search">
-            <input type="text" class="form-control" placeholder="Search" v-model="filter"/>
-            <div class="input-group-append">
-              <button class="btn btn-sm btn-outline-secondary add" type="button" @click="show = !show">+</button>
-            </div>
+        <div class="input-group search-input">
+          <span class="icon icon-search"></span>
+          <input type="search" class="form-control" placeholder="Key name / value" v-model="filter">
+          <div class="input-group-append">
+            <button class="btn btn-sm btn-outline-secondary add" type="button" @click="show = !show">+</button>
           </div>
+        </div>
+         
           <div class="list-padding">
             <table class="pane table-striped" id="list">
               <tbody class="list">
                 <tr v-for="(text, key) in getFilterList" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, text)">
                   <td class="list-item">
-                    <span scope="row" v-text="key"></span>: <span scope="row" v-text="text">
-                    </span>
-                    <a class="rm-btn float-right" @click.stop="removeKey({type: 'list', key: select.key, item: text, id: key})">x</a>
+                    <span v-text="key"></span>
+                    <a class="rm-btn float-right" @click.stop="removeKey({type: 'hash', key: select.key, item: key})">x</a>
                   </td>
                 </tr>
               </tbody>
@@ -38,15 +39,14 @@
           </div>
         </div>
 
-      <modal v-if="show" 
-            @close="show = false" 
-            @save="change" 
-            :inputs="{
-              'Name:': {type: 'string', minLength: 1}
-            }"
-            title="Create new"
-            button="add"
-      />
+    <modal v-if="show" 
+          @close="show = false" 
+          @save="change" 
+          :inputs="{
+            'Name:': {type: 'string', minLength: 1}
+          }"
+          title="Create new"
+          button="add"/>
   </div>
 </template>
 
@@ -62,8 +62,8 @@
           key: '', 
           text: ''
         },
-        filter: '',
-        show: false
+        show: false,
+        filter: ''
       }
     },
     watch: {
@@ -92,17 +92,15 @@
       ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey', setFilter: 'setFilter'}),
       save() {
         this.val[this.selectedItem.key] = this.selectedItem.text;
-        this.saveKey({type: 'list', index: this.selectedItem.key, val: this.selectedItem.text, key: this.select.key})
+        this.saveKey({type: 'hash', item: this.selectedItem.key, val: this.selectedItem.text, key: this.select.key})
       },
       selectItem(key, text) {
         this.selectedItem.key = key;
         this.selectedItem.text = text;
       },
       change(data) {
-        console.log(data)
-        this.saveKey({type: 'list', key: this.select.key, val: data['Name:']})
-        let keys = Object.keys(this.val);
-        this.val[parseInt(keys[keys.length - 1]) + 1] = data['Name:'];
+        this.saveKey({type: 'hash', item: data['Name:'], key: this.select.key})
+        this.val[data['Name:']] = 'New Value';
         this.show = false;
       },
     },
@@ -116,7 +114,6 @@
     }
   }
 </script>
-
 <style scoped>
 
 </style>

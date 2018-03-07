@@ -5,7 +5,9 @@
       <div class="pane-group">
         <left-menu />
         <editor v-if="select && type === 'editor'" />
+        <info-page v-if="!select && type === 'editor'" />
         <terminal v-if="type === 'terminal'" />
+        <Settings v-if="type === 'settings'" />
       </div>
     </div>
     <div class="window-content" v-else>
@@ -22,15 +24,17 @@
   import TopMenu from './IndexPage/TopMenu'
   import Editor from './Editor/Editor'
   import addButton from './IndexPage/addButton'
-  import Terminal from './Terminal/Terminal'
+  import Terminal from './IndexPage/Terminal'
+  import Settings from './IndexPage/SettingsPage'
 
-  import ConnectionPage from './ConnectionPage'
+  import ConnectionPage from './IndexPage/ConnectionPage'
+  import InfoPage from './IndexPage/InfoPage'
   
   import { mapActions, mapGetters, mapState } from 'vuex'
 
   export default {
     name: 'index-page',
-    components: { LeftMenu, TopMenu, Editor, addButton, ConnectionPage, Terminal },
+    components: { LeftMenu, TopMenu, Editor, addButton, ConnectionPage, Terminal, InfoPage, Settings },
     methods: {
       ...mapActions({selectDB: 'selectDB', addNewTab: 'addNewTab', selectTab: 'selectTab'}),
       open (link) {
@@ -65,7 +69,7 @@
       },
     },
     mounted () {
-      console.log('data', this.count);
+      
     }
   }
 </script>

@@ -52,12 +52,12 @@
 
             <div class="form-check">
               <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" v-model="config.ssh">
+                <input type="checkbox" class="form-check-input" v-model="config.ssl">
                 <span class="span-label">SSL</span>
               </label>
             </div>
 
-            <div v-if="config.ssh">
+            <div v-if="config.ssl">
               <div class="form-group row">
                 <label for="example-text-input" class="col-4 col-form-label">Private Key</label>
                 <div class="col-8">
@@ -101,7 +101,7 @@
             <div class="form-check">
               <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" v-model="config.sshTunnel">
-                <span class="span-label">SSL thonnel</span>
+                <span class="span-label">SSH thonnel</span>
               </label>
             </div>
 
@@ -159,7 +159,7 @@
 
 <script> 
   import { mapActions, mapGetters, mapState } from 'vuex'
-  import { LocalStore } from '../../store.js'
+  import { LocalStore } from '../../../store.js'
   const store = new LocalStore({
     configName: 'favorites',
     autoSave: true,
@@ -184,7 +184,7 @@
           port: 6379,
           password: '',
 
-          ssh: false,
+          ssl: false,
           sshHost: '127.0.0.1',
           sshPort: 22,
           sshUser: 'user',
@@ -239,7 +239,7 @@
       redis_status() { return this.$store.state.List.status },
     },
     mounted () {
-      console.log();
+      
     }
   }
 </script>
@@ -262,11 +262,6 @@
 
   .span-label {
     padding-left: 15px;
-  }
-
-  .pane-sl {
-    max-width: 250px;
-    min-width: 220px
   }
 
   .sidebar {

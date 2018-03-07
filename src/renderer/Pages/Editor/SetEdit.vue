@@ -1,8 +1,9 @@
 <template>
   <div class="pane-group">
     <div class="pane pane-sm sidebar">
-        <div class="input-group mb-12 search">
-          <input type="text" class="form-control" placeholder="Search" v-model="filter"/>
+        <div class="input-group search-input">
+          <span class="icon icon-search"></span>
+          <input type="search" class="form-control" placeholder="Key name / value" v-model="filter">
           <div class="input-group-append">
             <button class="btn btn-sm btn-outline-secondary add" type="button" @click="show = !show">+</button>
           </div>
@@ -10,17 +11,13 @@
         <div class="list-padding">
           <table class="pane table-striped" id="list">
             <tbody class="list">
-              <tr v-for="(item, key) in getFilterList" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, item)">
+              <tr v-for="(text, key) in getFilterList" :key="key" :class="{active: selectedItem.key === key}" class="line" @click="selectItem(key, text)">
                 <td class="list-item">
                   <span 
                     scope="row" 
-                    v-text="item.score">
-                  </span>:
-                  <span 
-                    scope="row" 
-                    v-text="item.val">
+                    v-text="text">
                   </span>
-                  <a class="rm-btn float-right" @click.stop="removeKey({type: 'zset', key: select.key, item: item.val, id: key})">x</a>
+                  <a class="rm-btn float-right" @click.stop="removeKey({type: 'set', key: select.key, item: text, id: key})">x</a>
                 </td>
               </tr>
             </tbody>
@@ -46,10 +43,9 @@
 
       <modal v-if="show" 
             @close="show = false" 
-            @save="add" 
+            @save="change" 
             :inputs="{
-              'Name:': {type: 'string', minLength: 1},
-              'Score:': {type: 'number', minLength: 1}
+              'Name:': {type: 'string', minLength: 1}
             }"
             title="Create new"
             button="add"
@@ -60,7 +56,6 @@
 <script>
   import { mapActions, mapGetters, mapState } from 'vuex'
   import modal from '../modal.vue'
-  import Vue from 'vue'
   export default {
     components: { modal },
     data () {
@@ -69,8 +64,7 @@
         old: '',
         selectedItem: {
           key: '', 
-          text: '',
-          score: ''
+          text: ''
         },
         filter: '',
         show: false
@@ -82,10 +76,9 @@
         this.val = val
         this.selectedItem = {
           key: Object.keys(this.val)[0],
-          text: this.val[Object.keys(this.val)[0]].val,
-          score: this.val[Object.keys(this.val)[0]].score
+          text: this.val[Object.keys(this.val)[0]]
         }
-        this.old = this.selectedItem.text
+        this.old = this.selectedItem.text;
       },
       filter(val) {
         this.setFilter(val)
@@ -103,21 +96,18 @@
     methods: {
       ...mapActions({saveKey: 'saveKey', createKey: 'createKey', removeKey: 'removeKey', setFilter: 'setFilter'}),
       save() {
-        // @todo fix
-        this.saveKey({type: 'zset', key: this.select.key, val: this.selectedItem.text, score: this.selectedItem.score})
-        this.removeKey({type: 'zset', item: this.old, key: this.select.key, id: this.selectedItem.key});
-        this.$set(this.val, this.selectedItem.key, {val: this.selectedItem.text, score: this.selectedItem.score});
+        this.val[this.selectedItem.key] = this.selectedItem.text;
+        this.removeKey({type: 'set', old: this.old, key: this.select.key});
+        this.saveKey({type: 'set', val: this.selectedItem.text, key: this.select.key})
       },
-      selectItem(key, item) {
+      selectItem(key, text) {
+        this.old = text;
         this.selectedItem.key = key;
-        this.selectedItem.text = item.val;
-        this.selectedItem.score = item.score;
-        this.old = this.selectedItem.text
+        this.selectedItem.text = text;
       },
-      add(data) {
-        this.saveKey({type: 'zset', key: this.select.key, val: data['Name:'], score: data['Score:']})
-        let keys = Object.keys(this.val);
-        this.val[Object.keys(this.val).length] = {val: data['Name:'], score: data['Score:']};
+      create(data) {
+        this.saveKey({type: 'set', val: data['Name:'], key: this.select.key})
+        this.val[data['Name:']] = data['Name:'];
         this.show = false;
       },
     },
@@ -125,15 +115,13 @@
       if(this.select.val == null) return;
       this.val = this.select.val
       this.selectedItem = {
-          key: Object.keys(this.val)[0],
-          text: this.val[Object.keys(this.val)[0]].val,
-          score: this.val[Object.keys(this.val)[0]].score
+        key: Object.keys(this.val)[0],
+        text: this.val[Object.keys(this.val)[0]]
       }
-      this.old = this.selectedItem.text
+      this.old = this.selectedItem.text;
     }
   }
 </script>
 
 <style scoped>
- 
 </style>
